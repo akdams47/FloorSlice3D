@@ -1,0 +1,117 @@
+{
+  "settings": {
+    "wallThickness": 0.2,
+    "floorHeight": 2.8
+  },
+  "rooms": [
+    {
+      "id": "living-room",
+      "label": "Living Room",
+      "vertices": [[0, 0], [6, 0], [6, 5], [0, 5]]
+    },
+    {
+      "id": "kitchen",
+      "label": "Kitchen",
+      "vertices": [[6, 0], [10, 0], [10, 5], [6, 5]]
+    },
+    {
+      "id": "bedroom",
+      "label": "Bedroom",
+      "vertices": [[0, 5], [5, 5], [5, 8], [0, 8]]
+    },
+    {
+      "id": "bathroom",
+      "label": "Bathroom",
+      "vertices": [[5, 5], [10, 5], [10, 8], [5, 8]]
+    }
+  ],
+  "walls": [
+    {
+      "id": "w-south",
+      "type": "exterior",
+      "start": [0, 0],
+      "end": [10, 0],
+      "thickness": 0.2,
+      "apertures": [
+        { "type": "door", "offset": 2.5, "width": 1.2, "height": 2.1, "sillHeight": 0.0 },
+        { "type": "window", "offset": 7.5, "width": 1.8, "height": 1.5, "sillHeight": 1.0 }
+      ]
+    },
+    {
+      "id": "w-east",
+      "type": "exterior",
+      "start": [10, 0],
+      "end": [10, 8],
+      "thickness": 0.2,
+      "apertures": [
+        { "type": "window", "offset": 2.0, "width": 2.0, "height": 1.5, "sillHeight": 1.0 },
+        { "type": "window", "offset": 6.0, "width": 1.2, "height": 1.2, "sillHeight": 1.2 }
+      ]
+    },
+    {
+      "id": "w-north",
+      "type": "exterior",
+      "start": [10, 8],
+      "end": [0, 8],
+      "thickness": 0.2,
+      "apertures": [
+        { "type": "window", "offset": 2.5, "width": 1.5, "height": 1.5, "sillHeight": 1.0 },
+        { "type": "window", "offset": 7.0, "width": 1.5, "height": 1.5, "sillHeight": 1.0 }
+      ]
+    },
+    {
+      "id": "w-west",
+      "type": "exterior",
+      "start": [0, 8],
+      "end": [0, 0],
+      "thickness": 0.2,
+      "apertures": [
+        { "type": "window", "offset": 3.0, "width": 1.8, "height": 1.5, "sillHeight": 1.0 }
+      ]
+    },
+    {
+      "id": "w-interior-ns",
+      "type": "interior",
+      "start": [6, 0],
+      "end": [6, 5],
+      "thickness": 0.15,
+      "apertures": [
+        { "type": "door", "offset": 1.5, "width": 0.9, "height": 2.1, "sillHeight": 0.0 }
+      ]
+    },
+    {
+      "id": "w-interior-ew",
+      "type": "interior",
+      "start": [0, 5],
+      "end": [10, 5],
+      "thickness": 0.15,
+      "apertures": [
+        { "type": "door", "offset": 2.0, "width": 0.9, "height": 2.1, "sillHeight": 0.0 },
+        { "type": "door", "offset": 7.0, "width": 0.9, "height": 2.1, "sillHeight": 0.0 }
+      ]
+    },
+    {
+      "id": "w-interior-bedroom-bath",
+      "type": "interior",
+      "start": [5, 5],
+      "end": [5, 8],
+      "thickness": 0.15,
+      "apertures": [
+        { "type": "door", "offset": 1.0, "width": 0.8, "height": 2.1, "sillHeight": 0.0 }
+      ]
+    }
+  ],
+  "camera": {
+    "flythrough": [
+      { "target": "living-room", "duration": 2.5, "easing": "power2.inOut" },
+      { "target": "kitchen", "duration": 2.0, "easing": "power2.inOut" },
+      { "target": "bathroom", "duration": 2.0, "easing": "power2.inOut" },
+      { "target": "bedroom", "duration": 2.5, "easing": "power2.inOut" }
+    ]
+  },
+  "sun": {
+    "latitude": 40.7,
+    "longitude": -74.0,
+    "date": "2025-06-21"
+  }
+}
