@@ -12,11 +12,11 @@ export default function ControlPanel() {
 
   return (
     <div
-      className="absolute top-4 right-4 w-64 pointer-events-auto
+      className="absolute top-4 right-4 w-56 sm:w-64 pointer-events-auto
         rounded-xl border border-white/10
         bg-black/60 backdrop-blur-xl
         shadow-2xl shadow-black/30
-        p-4 flex flex-col gap-4"
+        p-3 sm:p-4 flex flex-col gap-3 sm:gap-4"
     >
       <h2 className="text-sm font-semibold text-white/90 tracking-wide">
         FloorSlice3D
