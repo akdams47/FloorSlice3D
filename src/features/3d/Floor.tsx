@@ -1,34 +1,11 @@
 import { useMemo } from 'react'
 import * as THREE from 'three'
 import { useAppStore } from '../../store/useAppStore'
+import { useBounds } from './FloorPlan'
 
 export default function Floor() {
-  const floorPlan = useAppStore((s) => s.floorPlan)
-  const { walls, settings } = floorPlan
-
-  const bounds = useMemo(() => {
-    let minX = Infinity, minZ = Infinity
-    let maxX = -Infinity, maxZ = -Infinity
-    for (const wall of walls) {
-      for (const pt of [wall.start, wall.end]) {
-        minX = Math.min(minX, pt[0])
-        minZ = Math.min(minZ, pt[1])
-        maxX = Math.max(maxX, pt[0])
-        maxZ = Math.max(maxZ, pt[1])
-      }
-    }
-    const margin = 0.3
-    return {
-      minX: minX - margin,
-      minZ: minZ - margin,
-      maxX: maxX + margin,
-      maxZ: maxZ + margin,
-      width: maxX - minX + margin * 2,
-      depth: maxZ - minZ + margin * 2,
-      centerX: (minX + maxX) / 2,
-      centerZ: (minZ + maxZ) / 2,
-    }
-  }, [walls])
+  const settings = useAppStore((s) => s.floorPlan.settings)
+  const bounds = useBounds()
 
   const floorMaterial = useMemo(
     () =>

@@ -3,6 +3,8 @@ import * as THREE from 'three'
 import { Geometry, Base } from '@react-three/csg'
 import type { Wall as WallType } from '../../types/floorplan'
 import Aperture from './Aperture'
+import StencilWall from './StencilWall'
+import { useClipping } from './ClippingManager'
 
 interface WallProps {
   wall: WallType
@@ -13,6 +15,8 @@ interface WallProps {
 
 export default function Wall({ wall, floorHeight, wallMaterial, revealMaterial }: WallProps) {
   const geometryRef = useRef<any>(null)
+  const meshRef = useRef<THREE.Mesh>(null)
+  const { clippingPlane } = useClipping()
 
   const { position, rotation, length } = useMemo(() => {
     const [sx, sz] = wall.start
@@ -39,48 +43,61 @@ export default function Wall({ wall, floorHeight, wallMaterial, revealMaterial }
     return shape
   }, [length, floorHeight])
 
+  // Assign clipping plane to wall material
+  wallMaterial.clippingPlanes = [clippingPlane]
+
   const hasApertures = wall.apertures.length > 0
 
   return (
-    <group position={position} rotation={rotation}>
-      <mesh
-        castShadow
-        receiveShadow
-      >
-        {hasApertures ? (
-          <Geometry
-            ref={geometryRef}
-            useGroups
-            computeVertexNormals
-          >
-            <Base>
-              <extrudeGeometry
-                args={[
-                  wallShape,
-                  { depth: wall.thickness, bevelEnabled: false },
-                ]}
-              />
-              <primitive object={wallMaterial} attach="material" />
-            </Base>
-            {wall.apertures.map((aperture, i) => (
-              <Aperture
-                key={`${wall.id}-aperture-${i}`}
-                aperture={aperture}
-                wallThickness={wall.thickness}
-                wallLength={length}
-              />
-            ))}
-          </Geometry>
-        ) : (
-          <extrudeGeometry
-            args={[
-              wallShape,
-              { depth: wall.thickness, bevelEnabled: false },
-            ]}
-          />
-        )}
-        {!hasApertures && <primitive object={wallMaterial} attach="material" />}
-      </mesh>
-    </group>
+    <>
+      <group position={position} rotation={rotation}>
+        <mesh
+          ref={meshRef}
+          castShadow
+          receiveShadow
+        >
+          {hasApertures ? (
+            <Geometry
+              ref={geometryRef}
+              useGroups
+              computeVertexNormals
+            >
+              <Base>
+                <extrudeGeometry
+                  args={[
+                    wallShape,
+                    { depth: wall.thickness, bevelEnabled: false },
+                  ]}
+                />
+                <primitive object={wallMaterial} attach="material" />
+              </Base>
+              {wall.apertures.map((aperture, i) => (
+                <Aperture
+                  key={`${wall.id}-aperture-${i}`}
+                  aperture={aperture}
+                  wallThickness={wall.thickness}
+                  wallLength={length}
+                />
+              ))}
+            </Geometry>
+          ) : (
+            <extrudeGeometry
+              args={[
+                wallShape,
+                { depth: wall.thickness, bevelEnabled: false },
+              ]}
+            />
+          )}
+          {!hasApertures && <primitive object={wallMaterial} attach="material" />}
+        </mesh>
+      </group>
+
+      {/* Stencil passes for cross-section capping */}
+      <StencilWall
+        wallMeshRef={meshRef}
+        position={position}
+        rotation={rotation}
+      />
+    </>
   )
 }
