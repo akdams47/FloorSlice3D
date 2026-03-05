@@ -1,11 +1,11 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
 import Scene from './features/3d/Scene'
 import Lighting from './features/3d/Lighting'
 import FloorPlan from './features/3d/FloorPlan'
 import Floor from './features/3d/Floor'
 import SunLight from './features/3d/SunLight'
+import CameraController from './features/3d/CameraController'
 
 export default function App() {
   return (
@@ -21,12 +21,7 @@ export default function App() {
           <FloorPlan />
           <Floor />
           <SunLight />
-          <OrbitControls
-            target={[5, 0, 4]}
-            maxPolarAngle={Math.PI / 2.1}
-            minDistance={3}
-            maxDistance={40}
-          />
+          <CameraController />
         </Suspense>
       </Canvas>
 
