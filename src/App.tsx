@@ -4,6 +4,7 @@ import { OrbitControls } from '@react-three/drei'
 import Scene from './features/3d/Scene'
 import Lighting from './features/3d/Lighting'
 import FloorPlan from './features/3d/FloorPlan'
+import Floor from './features/3d/Floor'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Scene />
           <Lighting />
           <FloorPlan />
+          <Floor />
           <OrbitControls
             target={[5, 0, 4]}
             maxPolarAngle={Math.PI / 2.1}
