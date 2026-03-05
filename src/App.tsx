@@ -8,6 +8,7 @@ import Floor from './features/3d/Floor'
 import SunLight from './features/3d/SunLight'
 import CameraController from './features/3d/CameraController'
 import ControlPanel from './features/ui/ControlPanel'
+import ChatPanel from './features/ui/ChatPanel'
 
 function LoadingFallback() {
   return (
@@ -48,8 +49,9 @@ export default function App() {
       </Canvas>
 
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <ChatPanel />
         <ControlPanel />
-        <div className="absolute bottom-4 left-4 pointer-events-auto">
+        <div className="absolute bottom-4 right-4 pointer-events-auto">
           <span className="text-white/50 text-xs font-mono">FloorSlice3D</span>
         </div>
       </div>
