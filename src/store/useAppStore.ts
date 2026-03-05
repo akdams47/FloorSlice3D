@@ -13,6 +13,7 @@ interface AppState {
 
   setSunTime: (time: number) => void
   setClippingHeight: (height: number) => void
+  setFloorPlan: (plan: FloorPlan) => void
   startFlythrough: () => void
   stopFlythrough: () => void
   setActiveRoom: (roomId: string | null) => void
@@ -27,6 +28,13 @@ export const useAppStore = create<AppState>((set) => ({
 
   setSunTime: (time) => set({ sunTime: time }),
   setClippingHeight: (height) => set({ clippingHeight: height }),
+  setFloorPlan: (plan) =>
+    set({
+      floorPlan: plan,
+      clippingHeight: plan.settings.floorHeight,
+      isAnimating: false,
+      activeRoom: null,
+    }),
   startFlythrough: () => set({ isAnimating: true }),
   stopFlythrough: () => set({ isAnimating: false, activeRoom: null }),
   setActiveRoom: (roomId) => set({ activeRoom: roomId }),
